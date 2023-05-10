@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.register_blueprint(product, url_prefix='/products')
 
 
-@app.route('/home')
+@app.route('/')
 def hello_world():  # put application's code here
     return 'Hello World!'
 
