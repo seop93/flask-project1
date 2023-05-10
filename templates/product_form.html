@@ -1,0 +1,18 @@
+
+{# 이미지 업로드등을 사용할때 쓰는 encytype#}
+{# action 은 주소 method는 방식#}
+<form action="/products/regist" method="post" enctype="multipart/form-data">
+{#어떤 값을 넣을건지 구분 짓는 것    #}
+{#name은 키값    #}
+    <label>product name</label>
+    <input type="text" name="name"><hr/>
+    <label>product price</label>
+    <input type="text" name="price"><hr/>
+    <label>description</label>
+    <input type="text" name="description"><hr/>
+    <label>product thumbnail_img</label>
+    <input type="file" name="thumbnail_img"><hr/>
+    <label>product detail_img</label>
+    <input type="file" name="detail_img"><hr/>
+    <button type="submit">regist</button>
+</form>
