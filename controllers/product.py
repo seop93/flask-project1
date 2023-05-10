@@ -1,12 +1,16 @@
 import os
 from datetime import datetime
 
-from flask import request
+from flask import request, render_template
 from werkzeug.utils import secure_filename
 
 from .blueprint import product
 # from models.mongo import conn_mongodb
 from models.product import Product
+
+@product.route('/form')
+def form():
+    return render_template('product_form.html')
 
 
 #상품 API
