@@ -1,0 +1,83 @@
+{%  extends "base.html" %}
+{% block content %}
+    {# 이미지 업로드등을 사용할때 쓰는 encytype#}
+    {# action 은 주소 method는 방식#}
+
+{#        <form action="/products/regist" method="post" enctype="multipart/form-data">#}
+{#        어떤 값을 넣을건지 구분 짓는 것    #}
+{#        name은 키값    #}
+{#            <label>product name</label>#}
+{#            <input class="input-style" type=text" name="name"><hr/>#}
+{#            <label>product price</label>#}
+{#            <input type="text" name="price"><hr/>#}
+{#            <label>description</label>#}
+{#            <input type="text" name="description"><hr/>#}
+{#            <label>product thumbnail_img</label>#}
+{#            <input type="file" name="thumbnail_img"><hr/>#}
+{#            <label>product detail_img</label>#}
+{#            <input type="file" name="detail_img"><hr/>#}
+{#            <button type="submit"id="regist-button">regist</button>#}
+{#        </form>#}
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+
+                </div>
+                <div class="col-4">
+                    <hr>
+                    <h3 class="pt-2 pb-2 text-center">상품 수정</h3>
+                    <hr>
+
+                    <form action="/products/{{ product['_id'] }}/update" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">product name</label>
+                        <input name="name" value="{{ product['name'] }}" type="text" class="form-control" id="name" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">product price</label>
+                        <input name="price" value={{product['price']}} type="text" class="form-control" id="price">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">product description</label>
+                        <textarea name="description" type="text" class="form-control" id="description">{{ product['description'] }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="thumbnail_img" class="form-label">product thumbnail_img</label>
+                        <input name="thumbnail_img" type="file" class="form-control" id="thumbnail_img">
+                    </div>
+                    <div class="mb-3">
+                        <label for="detail_img" class="form-label">product detail_img</label>
+                        <input name="detail_img" type="file" class="form-control" id="detail_img">
+                    </div>
+                    <div class="mb-3 form-check">
+                        <label for="form-check-label" class="exampleCheck1">Check me out</label>
+                        <input type="checkbox" class="form-check-input" id="exampleCheckbox1">
+                    </div>
+                      <button type="submit" class="btn btn-primary w-100">Submit</button>
+                    </form>
+
+                </div>
+                <div class="col-4">
+
+                </div>
+            </div>
+
+
+        </div>
+        {% endblock %}
+
+
+<style>
+{#id는 #}
+{#    #form {#}
+{#        color: red;#}
+{#    }#}
+    #regist-button{
+        color: blue;
+    }
+{#class는 .#}
+    .input-style{
+        border-color:  green;
+    }
+
+</style>
