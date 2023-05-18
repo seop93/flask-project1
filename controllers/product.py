@@ -93,6 +93,14 @@ def update(product_id):
     # 어떤 url 이냐면 product 안에 있는 get_products로 가겠다.
     return redirect(url_for('product.get_products'))
 
+# 상품 상세 정보 페이지 API
+@product.route('/<product_id>/detail')
+def detail(product_id):
+    product = Product.find_one(product_id)
+
+    return render_template('product.html', product=product)
+
+
 
 @product.route('/test', methods=['GET'])
 def test():
