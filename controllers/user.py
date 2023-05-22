@@ -1,5 +1,5 @@
 import os
-from flask import request, render_template, flash, redirect, url_for
+from flask import request, render_template, flash, redirect, url_for, session
 from .blueprint import product
 from .blueprint import user
 from models.user import User
@@ -27,7 +27,34 @@ def signup():
     User.insert_one(form_data)
     return redirect(url_for('product.get_products'))
 
-# 테스트 API
+    # 로그인 API
+
+
+@user.route('/signin', methods=['POST'])
+def signin():
+    form_data = request.form
+    user = User.sign_in(form_data)
+
+    if not user:
+        flash('이메일 주소 또는 비밀번호를 확인해주세요')
+        return render_template('user_signin.html')
+    else:
+        session['user_id'] = str(user['_id'])
+        return redirect(url_for('product.get_products'))
+
+
+# 로그인 페이지 API
+@user.route('/signin')
+def signin_form():
+    return render_template('user_signin.html')
+
+# 로그아웃
+@user.route('/signout')
+def signout():
+    session.pop('user_id', None)
+
+    return redirect(url_for('product.get_products'))
+
 @user.route('/test')
 def test():
     return "테스트 API입니다."
