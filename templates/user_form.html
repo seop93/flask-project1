@@ -1,0 +1,78 @@
+{%  extends "base.html" %}
+{% block content %}
+{%  with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+            alert('{{ messages[-1] }}')
+        </script>
+    {% endif %}
+{%  endwith %}
+    {# 이미지 업로드등을 사용할때 쓰는 encytype#}
+    {# action 은 주소 method는 방식#}
+
+{#        <form action="/products/regist" method="post" enctype="multipart/form-data">#}
+{#        어떤 값을 넣을건지 구분 짓는 것    #}
+{#        name은 키값    #}
+{#            <label>product name</label>#}
+{#            <input class="input-style" type=text" name="name"><hr/>#}
+{#            <label>product price</label>#}
+{#            <input type="text" name="price"><hr/>#}
+{#            <label>description</label>#}
+{#            <input type="text" name="description"><hr/>#}
+{#            <label>product thumbnail_img</label>#}
+{#            <input type="file" name="thumbnail_img"><hr/>#}
+{#            <label>product detail_img</label>#}
+{#            <input type="file" name="detail_img"><hr/>#}
+{#            <button type="submit"id="regist-button">regist</button>#}
+{#        </form>#}
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+
+                </div>
+                <div class="col-4">
+                    <hr>
+                    <h3 class="pt-2 pb-2 text-center">회원가입</h3>
+                    <hr>
+
+                    <form action="/users/signup" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input name="email" type="text" class="form-control" id="email" aria-describedby="emailHelp" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">password</label>
+                        <input name="password" type="password" class="form-control" id="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password_confirmation" class="form-label">Password_confirmation</label>
+                        <input name="password_confirmation" type="password" class="form-control" id="password_confirmation" required>
+                    </div>
+                      <button type="submit" class="btn btn-primary w-100">Sign up</button>
+                    </form>
+
+                </div>
+                <div class="col-4">
+
+                </div>
+            </div>
+
+
+        </div>
+        {% endblock %}
+
+
+<style>
+{#id는 #}
+{#    #form {#}
+{#        color: red;#}
+{#    }#}
+    #regist-button{
+        color: blue;
+    }
+{#class는 .#}
+    .input-style{
+        border-color:  green;
+    }
+
+</style>
