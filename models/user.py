@@ -36,5 +36,15 @@ class User():
 
         return user
 
+    @staticmethod
+    def find_one(user_id):
+        db = conn_mongodb()
+        user = db.users.find_one({'_id': ObjectId(user_id)})
+
+        if not user:
+            return False
+
+        return user
+
 
 

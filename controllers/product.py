@@ -3,7 +3,7 @@ from datetime import datetime
 
 from flask import request, render_template, redirect, url_for
 from werkzeug.utils import secure_filename
-
+from .auth import is_admin
 from .blueprint import product
 # from models.mongo import conn_mongodb
 from models.product import Product
@@ -12,12 +12,17 @@ from models.product import Product
 # 상품 등록 페이지 API
 @product.route('/form')
 def form():
+    if not is_admin():
+        return redirect(url_for('product.get_products'))
     return render_template('product_form.html')
 
 
 # 상품 API
 @product.route('/regist', methods=['POST'])
 def regist():
+    if not is_admin():
+        return redirect(url_for('product.get_products'))
+
     # 전달받은 상품 정보
     form_data = request.form
 
@@ -34,7 +39,7 @@ def regist():
     # 저장하는 일
     Product.insert_one(form_data, thumbnail_img_url, detail_img_url)
 
-    return "상품 등록 API입니다."
+    return redirect(url_for('product.get_products'))
 
 
 def _upload_file(img_file):
@@ -59,13 +64,17 @@ def get_products():
 # 상품삭제 API
 @product.route("/<product_id>/delete")
 def delete(product_id):
+    if not is_admin():
+        return redirect(url_for('product.get_products'))
     Product.delete_one(product_id)
-    return "상품이 정상적으로 삭제되었습니다."
+    return redirect(url_for('product.get_products'))
 
 
 # 상품 정보 수정 페이지 API
 @product.route('/<product_id>/edit')
 def edit(product_id):
+    if not is_admin():
+        return redirect(url_for('product.get_products'))
     product = Product.find_one(product_id)
 
     return render_template('product_edit.html', product=product)
@@ -73,6 +82,9 @@ def edit(product_id):
 # 상품 정보 수정 API
 @product.route('/<product_id>/update', methods=['POST'])
 def update(product_id):
+    if not is_admin():
+        return redirect(url_for('product.get_products'))
+
     # 전달받은 상품 정보
     form_data = request.form
 

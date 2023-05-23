@@ -1,8 +1,8 @@
-import os
 from flask import request, render_template, flash, redirect, url_for, session
-from .blueprint import product
+from .auth import check_login, redirect_to_signin_form
 from .blueprint import user
 from models.user import User
+from .auth import is_admin
 
 
 # 회원가입 페이지 API
@@ -27,9 +27,8 @@ def signup():
     User.insert_one(form_data)
     return redirect(url_for('product.get_products'))
 
-    # 로그인 API
 
-
+# 로그인 API
 @user.route('/signin', methods=['POST'])
 def signin():
     form_data = request.form
@@ -40,6 +39,8 @@ def signin():
         return render_template('user_signin.html')
     else:
         session['user_id'] = str(user['_id'])
+        if is_admin():
+            session['is_admin'] = True
         return redirect(url_for('product.get_products'))
 
 
@@ -48,13 +49,21 @@ def signin():
 def signin_form():
     return render_template('user_signin.html')
 
+
 # 로그아웃
+# @check_auth 데코레이터 방식도 가능
 @user.route('/signout')
 def signout():
-    session.pop('user_id', None)
+    user = check_login()
+    if not user:
+        return redirect_to_signin_form()
 
+    session.pop('user_id', None)
+    session.pop('is_admin', None)
     return redirect(url_for('product.get_products'))
+
+
 
 @user.route('/test')
 def test():
-    return "테스트 API입니다."
+    return "테스트 API입니다록."
