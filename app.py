@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect, url_for
 
 
 from controllers.product import product
@@ -15,7 +15,7 @@ app.register_blueprint(user, url_prefix='/users')
 
 @app.route('/')
 def hello_world():  # put application's code here
-    return 'Hello World!'
+    return redirect(url_for('product.get_products'))
 
 
 if __name__ == '__main__':
